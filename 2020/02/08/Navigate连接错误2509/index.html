@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Navigate连接错误2509 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Mac中安装MySQL8.0.1之后，使用命令行非常不方便，故找一个客户端来方便对可视化对数据库进行管理。[错误信息：]问题分析：版本造成的影响在MySQL 5.7中，默认的身份验证插件是 mysql_native_password；MySQL 5.8开始将caching_sha2_password作为默认的身份验证插件。 解决方法：将新的加密插件caching_sha2_password更改为5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Navigate连接错误2509">
+<meta property="og:url" content="http://yoursite.com/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Mac中安装MySQL8.0.1之后，使用命令行非常不方便，故找一个客户端来方便对可视化对数据库进行管理。[错误信息：]问题分析：版本造成的影响在MySQL 5.7中，默认的身份验证插件是 mysql_native_password；MySQL 5.8开始将caching_sha2_password作为默认的身份验证插件。 解决方法：将新的加密插件caching_sha2_password更改为5">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/Users/chao/h1/pic/1.png">
+<meta property="article:published_time" content="2020-02-08T14:30:41.000Z">
+<meta property="article:modified_time" content="2020-02-10T01:32:27.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/Users/chao/h1/pic/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Navigate连接错误2509" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/" class="article-date">
+  <time datetime="2020-02-08T14:30:41.000Z" itemprop="datePublished">2020-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Navigate连接错误2509
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Mac中安装MySQL8.0.1之后，使用命令行非常不方便，故找一个客户端来方便对可视化对数据库进行管理。<br>[错误信息：]<br><img src="/Users/chao/h1/pic/1.png" alt="alt 错误信息"><br>问题分析：<br>版本造成的影响<br>在MySQL 5.7中，默认的身份验证插件是 mysql_native_password；MySQL 5.8开始将caching_sha2_password作为默认的身份验证插件。</p>
+<p>解决方法：<br>将新的加密插件caching_sha2_password更改为5.7之前的加密插件 mysql_native_password</p>
+<p>mysql&gt; ALTER USER ‘root’@’localhost’ IDENTIFIED BY ‘password’ PASSWORD EXPIRE NEVER;</p>
+<p>mysql&gt; ALTER USER ‘root’@’localhost’ IDENTIFIED WITH mysql_native_password BY ‘12345678’;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/" data-id="ck6fsdnip0000j5qqh1ppcr48" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/05/%E7%BD%91%E9%A1%B5%EF%BC%8C%E9%80%9A%E5%90%91%E4%BA%92%E8%81%94%E7%BD%91%E4%B8%96%E7%95%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%89%87%E7%AA%97%E6%88%B7/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">网页，通向互联网世界的第一个扇窗户</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/">Navigate连接错误2509</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/05/%E7%BD%91%E9%A1%B5%EF%BC%8C%E9%80%9A%E5%90%91%E4%BA%92%E8%81%94%E7%BD%91%E4%B8%96%E7%95%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%89%87%E7%AA%97%E6%88%B7/">网页，通向互联网世界的第一个扇窗户</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/05/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
