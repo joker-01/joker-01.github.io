@@ -5,17 +5,17 @@
   
 
   
-  <title>Hello World | Hexo</title>
+  <title>Mac上安装Java环境及IDE（IntelliJ） | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="环境准备 jdk-8u212-macosx-x64.dmg ideaIU-2019.2.4.dmg  安装过程一路next 环境配置 找到用户目录（～）下的.&#x2F;bash_profile [^.&#x2F;bash_profile与profile的区别] 添加环境变量 export JAVA_HOME&#x3D;&#x2F;Library&#x2F;Java&#x2F;本机安装jdk位置路径export CLASSPAHT&#x3D;.:$JAVA_HOME">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2020/02/05/hello-world/index.html">
+<meta property="og:title" content="Mac上安装Java环境及IDE（IntelliJ）">
+<meta property="og:url" content="http://yoursite.com/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="环境准备 jdk-8u212-macosx-x64.dmg ideaIU-2019.2.4.dmg  安装过程一路next 环境配置 找到用户目录（～）下的.&#x2F;bash_profile [^.&#x2F;bash_profile与profile的区别] 添加环境变量 export JAVA_HOME&#x3D;&#x2F;Library&#x2F;Java&#x2F;本机安装jdk位置路径export CLASSPAHT&#x3D;.:$JAVA_HOME">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-02-05T06:42:45.000Z">
-<meta property="article:modified_time" content="2020-02-05T06:42:45.000Z">
+<meta property="article:published_time" content="2020-02-22T01:40:49.000Z">
+<meta property="article:modified_time" content="2020-02-22T02:36:11.256Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Mac上安装Java环境及IDE（IntelliJ）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/02/05/hello-world/" class="article-date">
-  <time datetime="2020-02-05T06:42:45.000Z" itemprop="datePublished">2020-02-05</time>
+    <a href="/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/" class="article-date">
+  <time datetime="2020-02-22T01:40:49.000Z" itemprop="datePublished">2020-02-22</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      Mac上安装Java环境及IDE（IntelliJ）
     </h1>
   
 
@@ -88,24 +88,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li>jdk-8u212-macosx-x64.dmg</li>
+<li>ideaIU-2019.2.4.dmg</li>
+</ul>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><p>一路next</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><ol>
+<li>找到用户目录（～）下的./bash_profile [^./bash_profile与profile的区别]</li>
+<li>添加环境变量<blockquote>
+<p>export JAVA_HOME=/Library/Java/本机安装jdk位置路径<br>export CLASSPAHT=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar<br>export PATH=$JAVA_HOME/bin:$PATH</p>
+</blockquote>
+</li>
+<li>source ./bash_profile 生效</li>
+</ol>
+<h2 id="IntelliJ-IDE-破解"><a href="#IntelliJ-IDE-破解" class="headerlink" title="IntelliJ IDE 破解"></a>IntelliJ IDE 破解</h2><p>参考：<a href="https://www.jianshu.com/p/3c87487e7121（https://www.jianshu.com/p/3c87487e7121ß）" target="_blank" rel="noopener">https://www.jianshu.com/p/3c87487e7121（https://www.jianshu.com/p/3c87487e7121ß）</a></p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>[^./bash_profile与profile的区别] ./bash_profile 用户登陆系统时被读取，里面所有命令会被bash执行；profile位于/etc目录下，是系统级（全局）的配置文件，当在用户主目录下找不到.bash_profile 时，就会读取这个文件；二者关系类似windows中用户变量与系统系统变量。</p>
+<p><strong>bash</strong> ： 进入子程序<br><strong>profile</strong> ： 配置</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/05/hello-world/" data-id="ck6wztgg40001j6qqgv0ygfng" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/" data-id="ck6wztgfl0000j6qqh3sfema4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -114,15 +117,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/02/05/%E7%BD%91%E9%A1%B5%EF%BC%8C%E9%80%9A%E5%90%91%E4%BA%92%E8%81%94%E7%BD%91%E4%B8%96%E7%95%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%89%87%E7%AA%97%E6%88%B7/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          网页，通向互联网世界的第一个扇窗户
-        
-      </div>
-    </a>
   
+    <a href="/2020/02/18/hexo%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">hexo入门</div>
+    </a>
   
 </nav>
 

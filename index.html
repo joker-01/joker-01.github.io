@@ -64,6 +64,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Mac上安装Java环境及IDE（IntelliJ）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/" class="article-date">
+  <time datetime="2020-02-22T01:40:49.000Z" itemprop="datePublished">2020-02-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/">Mac上安装Java环境及IDE（IntelliJ）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li>jdk-8u212-macosx-x64.dmg</li>
+<li>ideaIU-2019.2.4.dmg</li>
+</ul>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><p>一路next</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><ol>
+<li>找到用户目录（～）下的./bash_profile [^./bash_profile与profile的区别]</li>
+<li>添加环境变量<blockquote>
+<p>export JAVA_HOME=/Library/Java/本机安装jdk位置路径<br>export CLASSPAHT=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar<br>export PATH=$JAVA_HOME/bin:$PATH</p>
+</blockquote>
+</li>
+<li>source ./bash_profile 生效</li>
+</ol>
+<h2 id="IntelliJ-IDE-破解"><a href="#IntelliJ-IDE-破解" class="headerlink" title="IntelliJ IDE 破解"></a>IntelliJ IDE 破解</h2><p>参考：<a href="https://www.jianshu.com/p/3c87487e7121（https://www.jianshu.com/p/3c87487e7121ß）" target="_blank" rel="noopener">https://www.jianshu.com/p/3c87487e7121（https://www.jianshu.com/p/3c87487e7121ß）</a></p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>[^./bash_profile与profile的区别] ./bash_profile 用户登陆系统时被读取，里面所有命令会被bash执行；profile位于/etc目录下，是系统级（全局）的配置文件，当在用户主目录下找不到.bash_profile 时，就会读取这个文件；二者关系类似windows中用户变量与系统系统变量。</p>
+<p><strong>bash</strong> ： 进入子程序<br><strong>profile</strong> ： 配置</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/" data-id="ck6wztgfl0000j6qqh3sfema4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hexo入门" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/18/hexo%E5%85%A5%E9%97%A8/" class="article-date">
@@ -100,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/18/hexo%E5%85%A5%E9%97%A8/" data-id="ck6rjegb400014nqq94eifsqs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/18/hexo%E5%85%A5%E9%97%A8/" data-id="ck6wztgg80004j6qqf02i9w04" class="article-share-link">Share</a>
       
       
     </footer>
@@ -140,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/" data-id="ck6rjegax00004nqqgek75fg6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/" data-id="ck6wztgg60002j6qq8frd63r6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -177,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/05/%E7%BD%91%E9%A1%B5%EF%BC%8C%E9%80%9A%E5%90%91%E4%BA%92%E8%81%94%E7%BD%91%E4%B8%96%E7%95%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%89%87%E7%AA%97%E6%88%B7/" data-id="ck6rjegbi00034nqq2v5s9g14" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/05/%E7%BD%91%E9%A1%B5%EF%BC%8C%E9%80%9A%E5%90%91%E4%BA%92%E8%81%94%E7%BD%91%E4%B8%96%E7%95%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%89%87%E7%AA%97%E6%88%B7/" data-id="ck6wztgg70003j6qqfmzs20vj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -226,7 +278,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/05/hello-world/" data-id="ck6rjegb600024nqqfy4s3s7v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/05/hello-world/" data-id="ck6wztgg40001j6qqgv0ygfng" class="article-share-link">Share</a>
       
       
     </footer>
@@ -265,6 +317,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/">Mac上安装Java环境及IDE（IntelliJ）</a>
+          </li>
         
           <li>
             <a href="/2020/02/18/hexo%E5%85%A5%E9%97%A8/">hexo入门</a>
