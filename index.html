@@ -64,6 +64,253 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Python3中的编码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/08/Python3%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/" class="article-date">
+  <time datetime="2020-04-08T14:37:26.000Z" itemprop="datePublished">2020-04-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/08/Python3%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/">Python3中的编码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="编码的几个概念"><a href="#编码的几个概念" class="headerlink" title="编码的几个概念"></a>编码的几个概念</h2><p>理论上,从一个字符到具体的编码,会经过以下几个概念:<br>字符集(Abstract character repertoire)</p>
+<blockquote>
+<p>就算一堆抽象的字符，如所有中文。字符集的定义是抽象的，与计算机无关。<br>编码字符集(Coded character set)<br>是一个从整数集子集到字符集抽象元素的映射。即给抽象的字符编上数字。如gb2312中的定义的字符，每个字符都有个整数和它对应。一个整数只对 来，则不一定是。这里所说的映射关系，是数学意义上的映射关系。编码字符集也是与计算机无关的。unicode字符集也在这一层。<br>字符编码方式(Character encoding form)<br>这个开始与计算机有关了。编码字符集的编码点在计算机里的具体表现形式。通俗的说，意思就是怎么样才能将字符所对应的整数的放进计算机内 于是，不同人有不同的实现方式，所谓的万码奔腾，就是指这个。gb2312，utf-8,utf-16,utf-32等都在这一层。<br>字符编码方案(Character encoding scheme)<br>这个更加与计算机密切相关。具体是与操作系统密切相关。主要是解决大小字节序的问题。对于UTF-16和UTF-32编码，Unicode都支持big-endian 和 little-endian两种编码方案。</p>
+</blockquote>
+<p> 一般来说，我们所说的编码，都在第三层完成。具体到一个软件系统中，则很复杂。</p>
+<h2 id="乱码的原因"><a href="#乱码的原因" class="headerlink" title="乱码的原因"></a>乱码的原因</h2><h2 id="Python3与Python2区别"><a href="#Python3与Python2区别" class="headerlink" title="Python3与Python2区别"></a>Python3与Python2区别</h2><p>v3中的str 等价于 v2中unicode,v3中的bytes相当于v2中str<br>判断字符串是否是str</p>
+<blockquote>
+<p>isinstance(s,str)</p>
+</blockquote>
+<h2 id="Python中decode-解码-与encode-编码"><a href="#Python中decode-解码-与encode-编码" class="headerlink" title="Python中decode(解码)与encode(编码)"></a>Python中decode(解码)与encode(编码)</h2><h4 id="Python2中"><a href="#Python2中" class="headerlink" title="Python2中"></a>Python2中</h4><pre><code>decode         encode</code></pre><p>[一种编码格式]—-&gt;[unicode]—–&gt;[新编码方式]</p>
+<p>!若是一个字符串已经是unicode编码格式,再进行decode就会报错.</p>
+<h2 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h2><p>先了解两个概念:<br>字节:<br>字节流:,用“字节流”表示“字节”组成的串.<br>字符:又称为文本,比如英文字符“a”、“b”、“c”,中文字符“我你他”<br><strong>编码(动词)</strong>:按照某种规则(这种规则称为:”编码(名词)“)将”文本”转为”字节流“.[Python2中unicode–&gt;str]<br><strong>解码(动词)</strong>:将“字节流”按照某种规则转为“文本”.[Python2中str—-&gt;unicode]</p>
+<p>unicode定义了,一个’字符’和一个’数字’的对应</p>
+<p>!实际上,任何东西在计算机中表示,都需要编码.例如:视频编码保存在文件中,播放时需要解码.</p>
+<h2 id="查看本机默认编码"><a href="#查看本机默认编码" class="headerlink" title="查看本机默认编码"></a>查看本机默认编码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">print sys.getdefaultencode()</span><br></pre></td></tr></table></figure>
+<p>Python2中默认编码方式是ascii,Python是utf8</p>
+<h2 id="一些测试例子"><a href="#一些测试例子" class="headerlink" title="一些测试例子"></a>一些测试例子</h2><p>只要存在数据交互,就有可能发生编码不一致情况.<br>例如:网络传输过程、数据库<br>二者通信传输数据需要先编码成utf8格式的Bytes类型,再传送;暨数据在网络是以二进制传输的.<br>服务器端进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">from socket import *</span><br><span class="line">from time import ctime</span><br><span class="line"> </span><br><span class="line">Host&#x3D;&quot;&quot;#变量是空白的，表示可以使用任何可用的地址</span><br><span class="line">port&#x3D;21567</span><br><span class="line">BUFSIZ&#x3D;1024</span><br><span class="line">ADDR&#x3D;(Host,port)</span><br><span class="line">tcpSerSock&#x3D;socket(AF_INET,SOCK_STREAM) #分配了TCP套接字</span><br><span class="line">tcpSerSock.bind(ADDR)</span><br><span class="line">#将套接字绑定到服务器地址以及开启TCP监听器的调用</span><br><span class="line">tcpSerSock.listen(5)</span><br><span class="line">#连接被转接或者拒绝之前，传入请求的最大连接数</span><br><span class="line">while True:</span><br><span class="line">    #等待服务器的连接，如果消息是空白的，意味着客户端已经退出</span><br><span class="line">    print(&quot;waiting for connection&quot;)</span><br><span class="line">    tcpCliSock,addr&#x3D;tcpSerSock.accept()</span><br><span class="line">    print(&#39;connectin from:&#39;,addr)</span><br><span class="line">    while True:</span><br><span class="line">        data&#x3D;tcpCliSock.recv(BUFSIZ).decode(&#39;utf-8&#39;)</span><br><span class="line">        print(&quot;the client says: &quot;,data)</span><br><span class="line">        if not data:</span><br><span class="line">            break</span><br><span class="line">        tcpCliSock.send((&#39;[%s] %s&#39; % (ctime(),data).encode(encoding&#x3D;&#39;utf-8&#39;))</span><br><span class="line">    tcpCliSock.close()</span><br><span class="line">tcpSerSock.close()</span><br></pre></td></tr></table></figure>
+<p>客户端进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">from socket import *</span><br><span class="line"> </span><br><span class="line">HOST&#x3D;&#39;localhost&#39;#主机名</span><br><span class="line">POST&#x3D;21567#端口号，应该与服务端的端口号相同</span><br><span class="line">BUFSIZ&#x3D;1024</span><br><span class="line">ADDR&#x3D;(HOST,POST)</span><br><span class="line">tcpCliSock&#x3D;socket(AF_INET,SOCK_STREAM)#分配了套接字</span><br><span class="line">tcpCliSock.connect(ADDR)</span><br><span class="line">while True:</span><br><span class="line">    data&#x3D;input(&#39;&gt;&#39;)</span><br><span class="line">    if not data:</span><br><span class="line">        break</span><br><span class="line"> </span><br><span class="line">    tcpCliSock.send(data.encode(encoding&#x3D;&#39;utf-8&#39;))</span><br><span class="line">    data&#x3D;tcpCliSock.recv(BUFSIZ)</span><br><span class="line">    if not data:</span><br><span class="line">        break</span><br><span class="line">    print(data.decode(&#39;utf-8&#39;))</span><br><span class="line">tcpCliSock.close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/a921800467b/article/details/8579510" target="_blank" rel="noopener">https://blog.csdn.net/a921800467b/article/details/8579510</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/08/Python3%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/" data-id="ck9o73fnw00026cqq5j93c22j" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python系列之pip" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/07/Python%E7%B3%BB%E5%88%97%E4%B9%8Bpip/" class="article-date">
+  <time datetime="2020-04-07T14:46:16.000Z" itemprop="datePublished">2020-04-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/07/Python%E7%B3%BB%E5%88%97%E4%B9%8Bpip/">Python系列之pip</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>人生苦短，我用Python.</p>
+<h2 id="一-工作原理"><a href="#一-工作原理" class="headerlink" title="一.工作原理"></a>一.工作原理</h2><p>要知道pip的工作原理，首先要了解PyPI的概念。</p>
+<p>PyPI(Python Package Index)是Python官方的第三方库的仓库，所有人都可以下载第三方库或上传自己开发的库到PyPI。简单的说，就是存放了很多他人代码（官方称谓：“包”）的仓库。（什么，你不知道什么叫“包”？没问题，推荐你看这个文章，保证一目了然。Python的模块和包的理解）</p>
+<p>那pip与上述的PyPI是什么关系呢？</p>
+<p>pip，全称“第三方库管理工具”，显然是用来帮助你管理PyPI中各类的代码。（废话！！！）<br><strong>注意:</strong> 只有包含在PyPI中的包才能通过pip来管理依赖包.<br>例如:basemap就无法通过pip安装<br><strong>Tips:</strong>如何安装basemap?<br>类似的包可以在<a href="https://www.lfd.uci.edu/~gohlke" target="_blank" rel="noopener">https://www.lfd.uci.edu/~gohlke</a></p>
+<p>我们知道在自己的电脑中安装Python等相关软件，有时候会缺乏相应的包文件，这时候需要我们去网站上下载，然后安装到相应的目录中，但是这过程太麻烦了，我们需要搜索、下载、安装、配置等等。这时候如果有人告诉我哪里可以下载，顺便帮我下载安装就好了。（没错！pip就是扮演某人 的角色，他在“本地”与“服务器”之间建立某种联系，方便我们访问PyPI仓库中的包，下载、安装一条龙服务，尤其你需要安装多个包的时候，更是方便。）</p>
+<p>总而言之，使用pip时，就是建立你本地电脑与网站服务器之间的便利通道，同时，它也可以有效帮助管理你下载到本地的包。</p>
+<p><strong>Tips:</strong>Python第三方库的管理网站（俗称源）是：<a href="https://pypi.python.org/pypi" target="_blank" rel="noopener">https://pypi.python.org/pypi</a></p>
+<h2 id="二-pip的安装"><a href="#二-pip的安装" class="headerlink" title="二.pip的安装"></a>二.pip的安装</h2><p>一般而言，在Python2.7和Python3.4之后的版本中，都自动安装该工具。只需要你在命令行中输入一下命令即可查看相关操作。（Windows7为例）</p>
+<blockquote>
+<p> pip</p>
+</blockquote>
+<p>查看所有依赖包</p>
+<blockquote>
+<p> pip list </p>
+</blockquote>
+<p>安装包,在线安装</p>
+<blockquote>
+<p> pip install  XXX<br>离线安装,下载编译完成的轮子whl<br> pip install  xxx.whl</p>
+</blockquote>
+<p>离线下载XXX所有依赖包,尤其适用离线安装部署环境.(强烈推荐)</p>
+<blockquote>
+<p> pip download XXX</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/07/Python%E7%B3%BB%E5%88%97%E4%B9%8Bpip/" data-id="ck9o73fnz00056cqq79vi2nm8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Java连接sql数据库/Java连接sql数据库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/06/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/" class="article-date">
+  <time datetime="2020-04-06T13:48:44.829Z" itemprop="datePublished">2020-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/06/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/">Java连接sql数据库/Java连接sql数据库</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mon Apr 06 21:26:45 CST 2020 WARN: Establishing SSL connection without server&#39;s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn&#39;t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to &#39;false&#39;. You need either to explicitly disable SSL by setting useSSL&#x3D;false, or set useSSL&#x3D;true and provide truststore for server certificate verification.</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/06/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ck9o73fod000a6cqqa65e3rf8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Java连接sql数据库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/06/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/" class="article-date">
+  <time datetime="2020-04-06T13:38:34.000Z" itemprop="datePublished">2020-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/06/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/">Java连接sql数据库</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/06/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ck9o73fny00046cqq3f5h65pf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="sublime-Text3新手使用的一点经验" class="article article-type-sublime" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/04/Text3%E6%96%B0%E6%89%8B%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E7%82%B9%E7%BB%8F%E9%AA%8C/" class="article-date">
+  <time datetime="2020-03-04T10:09:45.000Z" itemprop="datePublished">2020-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/04/Text3%E6%96%B0%E6%89%8B%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E7%82%B9%E7%BB%8F%E9%AA%8C/">Text3新手使用的一点经验</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>####<br>强烈推荐的网站：<a href="http://www.sublimetext.cn" target="_blank" rel="noopener">http://www.sublimetext.cn</a></p>
+<p>首先说明一点，Sublime有很多种应用场景，每种场景需要安装的插件并不相同。</p>
+<p>我主要是作为<strong>前端开发</strong>工具使用的，所以安装的插件有：</p>
+<h1 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h1><p>Package Control (管理插件的包)<br>Emmet<br>PyV8（安装Emmet的准备包）<br>SiderBarTools<br>docBlockr<br>SiderBarEnhancements<br>AdvanceNewFile<br>LocalHistory<br>LESS CSS专用</p>
+<p>插件的安装方式<br>1.在线安装，有时候比较卡，不推荐<br>2.离线安装，因为有好多包在github上都有，所以可以直接从上面下载，放在指定位置即可<br>注意，有些插件离线安装和在线安装是不一样，离线安装有时需要更改文件夹名称。例如PyV8<br>{}</p>
+<pre><code>由于packagecontrol.io容易被墙，访问不稳定，所以需要将Sublime Text安装插件的地址改为中文镜像的地址：
+1、打开Package Control配置文件
+Package Settings &gt; Package Control&gt;Setting-User
+2、修改或新增channels地址
+{ &quot;channels&quot;: [ &quot;http://packagecontrol.cn/channel_v3.json&quot; ] }</code></pre><p>Sublime Text3 快捷键（Mac版）</p>
+<p>option+command+1（2，3，4，5） 分栏</p>
+<p>control+·   调出下方命令行</p>
+<p>参考：Sublime中文镜像<a href="http://packagecontrol.cn/installation" target="_blank" rel="noopener">http://packagecontrol.cn/installation</a></p>
+<hr>
+<p>参考网站：<br><a href="http://www.sublimetext.cn" target="_blank" rel="noopener">http://www.sublimetext.cn</a></p>
+<p>分栏快捷键：option+command+1，2，3</p>
+<p>第一步，安装Package Control<br>control + `<br>import urllib.request,os,hashlib; h = ‘6f4c264a24d933ce70df5dedcf1dcaee’ + ‘ebe013ee18cced0ef93d5f746d80ef60’; pf = ‘Package Control.sublime-package’; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( ‘<a href="http://packagecontrol.cn/&#39;" target="_blank" rel="noopener">http://packagecontrol.cn/&#39;</a> + pf.replace(‘ ‘, ‘%20’)).read(); dh = hashlib.sha256(by).hexdigest(); print(‘Error validating download (got %s instead of %s), please try manual install’ % (dh, h)) if dh != h else open(os.path.join( ipp, pf), ‘wb’ ).write(by)</p>
+<p>第二部，新增channels地址，因为这个很容易被墙<br>{ “channels”: [ “<a href="http://packagecontrol.cn/channel_v3.json&quot;" target="_blank" rel="noopener">http://packagecontrol.cn/channel_v3.json&quot;</a> ] }</p>
+<p>安装插件：<br>一种是借助Package Control在线安装<br>第二种：下载某个插件包，解压<br>其中有些包需要将文件重名名，例如PyV8，放在sublime Text3&gt;installed Package下。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/04/Text3%E6%96%B0%E6%89%8B%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E7%82%B9%E7%BB%8F%E9%AA%8C/" data-id="ck9o73fo200076cqqfcts3ypi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Java发行版本号" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/27/Java%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC%E5%8F%B7/" class="article-date">
@@ -86,12 +333,153 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Java发行版本号.md<br>已发行的版本:<br>版本号    名称    中文名    发布日期<br>JDK 1.1.4    Sparkler    宝石    9/12/97<br>JDK 1.1.5    Pumpkin    南瓜    12/13/97<br>JDK 1.1.6    Abigail    阿比盖尔–女子名    4/24/98<br>JDK 1.1.7    Brutus    布鲁图–古罗马政治家和将军    9/28/98<br>JDK 1.1.8    Chelsea    切尔西–城市名    4/8/99<br>J2SE 1.2<br>Playground<br>运动场    12/4/98<br>J2SE 1.2.1<br>none    无    3/30/99<br>J2SE 1.2.2<br>Cricket    蟋蟀    7/8/99<br>J2SE 1.3    Kestrel    美洲红隼    5/8/00<br>J2SE 1.3.1<br>Ladybird    瓢虫    5/17/01<br>J2SE 1.4.0<br>Merlin    灰背隼    2/13/02<br>J2SE 1.4.1<br>grasshopper<br>蚱蜢    9/16/02<br>J2SE 1.4.2<br>Mantis    螳螂    6/26/03<br>J2SE 5.0 (1.5.0)<br>Tiger    老虎    9/29/04<br>J2SE 5.1 (1.5.1)<br>Dragonfly    蜻蜓    未发布<br>J2SE 6.0 (1.6.0)<br>Mustang    野马    未发布<br>J2SE 7.0    Dolphin    海豚    未发布</p>
+        <p>Java发行版本号.md<br>已发行的版本:  </p>
+<table>
+<thead>
+<tr>
+<th>版本号</th>
+<th>名称</th>
+<th>中文名</th>
+<th>发布日期</th>
+<th>xxx</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JDK 1.1.4</td>
+<td>Sparkler</td>
+<td>宝石</td>
+<td>9/12/97</td>
+<td></td>
+</tr>
+<tr>
+<td>JDK 1.1.5</td>
+<td>Pumpkin</td>
+<td>南瓜</td>
+<td>12/13/97</td>
+<td></td>
+</tr>
+<tr>
+<td>JDK 1.1.6</td>
+<td>Abigail</td>
+<td>阿比盖尔–女子名</td>
+<td>4/24/98</td>
+<td></td>
+</tr>
+<tr>
+<td>JDK 1.1.7</td>
+<td>Brutus</td>
+<td>布鲁图–古罗马政治家和将军</td>
+<td>9/28/98</td>
+<td></td>
+</tr>
+<tr>
+<td>JDK 1.1.8</td>
+<td>Chelsea</td>
+<td>切尔西–城市名</td>
+<td>4/8/99</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="JAVA-EE"><a href="#JAVA-EE" class="headerlink" title="JAVA EE"></a><em>JAVA EE</em></h2><table>
+<thead>
+<tr>
+<th>版本号</th>
+<th>名称</th>
+<th>中文名</th>
+<th>发布日期</th>
+<th>xxx</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>J2SE 1.2</td>
+<td>Playground</td>
+<td>运动场</td>
+<td>12/4/98</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 1.2.1</td>
+<td>none</td>
+<td>无</td>
+<td>3/30/99</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 1.2.2</td>
+<td>Cricket</td>
+<td>蟋蟀</td>
+<td>7/8/99</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 1.3</td>
+<td>Kestrel</td>
+<td>美洲红隼</td>
+<td>5/8/00</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 1.3.1</td>
+<td>Ladybird</td>
+<td>瓢虫</td>
+<td>5/17/01</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 1.4.0</td>
+<td>Merlin</td>
+<td>灰背隼</td>
+<td>2/13/02</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 1.4.1</td>
+<td>grasshopper</td>
+<td>蚱蜢</td>
+<td>9/16/02</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 1.4.2</td>
+<td>Mantis</td>
+<td>螳螂</td>
+<td>6/26/03</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 5.0 (1.5.0)</td>
+<td>Tiger</td>
+<td>老虎</td>
+<td>9/29/04</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 5.1 (1.5.1)</td>
+<td>Dragonfly</td>
+<td>蜻蜓</td>
+<td>未发布</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 6.0 (1.6.0)</td>
+<td>Mustang</td>
+<td>野马</td>
+<td>未发布</td>
+<td></td>
+</tr>
+<tr>
+<td>J2SE 7.0</td>
+<td>Dolphin</td>
+<td>海豚未发布</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/27/Java%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC%E5%8F%B7/" data-id="ck7657h83000091qqb2cj5nyz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/27/Java%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC%E5%8F%B7/" data-id="ck9o73fnp00006cqq14275cfj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,7 +531,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/" data-id="ck7657h88000191qq8cpsadr6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/" data-id="ck9o73fnx00036cqqf1wm8201" class="article-share-link">Share</a>
       
       
     </footer>
@@ -189,7 +577,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/18/hexo%E5%85%A5%E9%97%A8/" data-id="ck7657h8d000491qq4qt6f8aj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/18/hexo%E5%85%A5%E9%97%A8/" data-id="ck9o73fo300096cqq23076w3a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -221,7 +609,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Mac中安装MySQL8.0.1之后，使用命令行非常不方便，故找一个客户端来方便对可视化对数据库进行管理。<br><img src="1.png" alt="alt 错误信息"></p>
+        <p>Mac中安装MySQL8.0.1之后，使用命令行非常不方便，故找一个客户端来方便对可视化对数据库进行管理。</p>
 <img src="/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/1.png" class="">
 <p>问题分析：<br>版本造成的影响<br>在MySQL 5.7中，默认的身份验证插件是 mysql_native_password；MySQL 5.8开始将caching_sha2_password作为默认的身份验证插件。</p>
 <p>解决方法：<br>将新的加密插件caching_sha2_password更改为5.7之前的加密插件 mysql_native_password</p>
@@ -231,7 +619,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/" data-id="ck7657h8a000291qq5xo40bcc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/" data-id="ck9o73fnv00016cqq9j1273pt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -268,56 +656,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/05/%E7%BD%91%E9%A1%B5%EF%BC%8C%E9%80%9A%E5%90%91%E4%BA%92%E8%81%94%E7%BD%91%E4%B8%96%E7%95%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%89%87%E7%AA%97%E6%88%B7/" data-id="ck7657h8e000591qq3je3hsen" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/05/hello-world/" class="article-date">
-  <time datetime="2020-02-05T06:42:45.000Z" itemprop="datePublished">2020-02-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/05/hello-world/" data-id="ck7657h8b000391qq92423d8g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/05/%E7%BD%91%E9%A1%B5%EF%BC%8C%E9%80%9A%E5%90%91%E4%BA%92%E8%81%94%E7%BD%91%E4%B8%96%E7%95%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%89%87%E7%AA%97%E6%88%B7/" data-id="ck9o73fo200086cqq9wat4p1z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -328,6 +667,11 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+  </nav>
 
 </section>
         
@@ -345,7 +689,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
     </div>
   </div>
 
@@ -358,23 +702,23 @@
       <ul>
         
           <li>
-            <a href="/2020/02/27/Java%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC%E5%8F%B7/">Java发行版本号</a>
+            <a href="/2020/04/08/Python3%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/">Python3中的编码</a>
           </li>
         
           <li>
-            <a href="/2020/02/22/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Java%E7%8E%AF%E5%A2%83%E5%8F%8AIDE%EF%BC%88IntelliJ%EF%BC%89/">Mac上安装Java环境及IDE（IntelliJ）</a>
+            <a href="/2020/04/07/Python%E7%B3%BB%E5%88%97%E4%B9%8Bpip/">Python系列之pip</a>
           </li>
         
           <li>
-            <a href="/2020/02/18/hexo%E5%85%A5%E9%97%A8/">hexo入门</a>
+            <a href="/2020/04/06/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/">Java连接sql数据库/Java连接sql数据库</a>
           </li>
         
           <li>
-            <a href="/2020/02/08/Navigate%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF2509/">Navigate连接错误2509</a>
+            <a href="/2020/04/06/Java%E8%BF%9E%E6%8E%A5sql%E6%95%B0%E6%8D%AE%E5%BA%93/">Java连接sql数据库</a>
           </li>
         
           <li>
-            <a href="/2020/02/05/%E7%BD%91%E9%A1%B5%EF%BC%8C%E9%80%9A%E5%90%91%E4%BA%92%E8%81%94%E7%BD%91%E4%B8%96%E7%95%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%89%87%E7%AA%97%E6%88%B7/">网页，通向互联网世界的第一个扇窗户</a>
+            <a href="/2020/03/04/Text3%E6%96%B0%E6%89%8B%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E7%82%B9%E7%BB%8F%E9%AA%8C/">Text3新手使用的一点经验</a>
           </li>
         
       </ul>
